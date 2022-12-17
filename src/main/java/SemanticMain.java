@@ -2,7 +2,9 @@ import org.apache.commons.lang3.time.StopWatch;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class SemanticMain {
@@ -59,17 +61,16 @@ public class SemanticMain {
     }
 
     /**
-     * Finds the vector associated with the input word in listVectors if the word is in listVocabulary. Otherwise, the vector
-     * associated with the word "error" is returned
+     * Finds the vector associated with the input word in listVectors if the word is in listVocabulary. Otherwise, the
+     * vector associated with the word "error" is returned
      * @param _word word to find the vector of
      * @return the vector representation of the input word
      */
     @NotNull
     private Vector getVector(String _word) {
-        return new Vector(listVectors.get(!listVocabulary.contains(_word)
+        return listGlove.get(!listVocabulary.contains(_word)
                 ? listVocabulary.indexOf("error")
-                : listVocabulary.indexOf(_word))
-        );
+                : listVocabulary.indexOf(_word)).getVector();
     }
 
     /**
